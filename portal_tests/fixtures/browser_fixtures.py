@@ -12,7 +12,10 @@ def playwright_instance():
 @pytest.fixture(scope="session")
 def browser(playwright_instance: Playwright) -> Browser:
     browser_type = getattr(playwright_instance, settings.browser)
-    browser = browser_type.launch(headless=settings.headless)
+    browser = browser_type.launch(
+        headless=settings.headless,
+        slow_mo=settings.slow_mo
+    )
     yield browser
     browser.close()
 
